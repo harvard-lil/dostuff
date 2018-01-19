@@ -21,6 +21,7 @@ djangorestframework = "*"
 django-environ = "*"
 requests = "*"
 jsonfield = "*"
+django-extensions = "*"
 
 
 [dev-packages]
