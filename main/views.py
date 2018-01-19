@@ -12,6 +12,7 @@ from .models import Event
 
 
 class EventSerializer(serializers.ModelSerializer):
+    id = serializers.IntegerField(read_only=True)
     data = serializers.JSONField()
     event_type = serializers.CharField(read_only=True)
 
@@ -44,7 +45,6 @@ class EventView(APIView):
 
 
 class ListEventsView(APIView):
-    permission_classes = (IsAdminUser,)
 
     def post(self, request, format=None):
         events = Event.objects.filter(status='submitted')
@@ -53,11 +53,6 @@ class ListEventsView(APIView):
 
         paginator = LimitOffsetPagination()
         items = paginator.paginate_queryset(events, request)
-
-        if request.GET.get('mark_processed'):
-            for event in items:
-                event.status = 'processed'
-                event.save()
 
         serializer = EventSerializer(items, many=True)
         return paginator.get_paginated_response(serializer.data)
