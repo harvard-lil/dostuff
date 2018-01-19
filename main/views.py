@@ -18,7 +18,7 @@ class EventSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Event
-        fields = ('event_type', 'data',)
+        fields = ('id', 'event_type', 'data',)
 
 class EventView(APIView):
     permission_classes = (IsAuthenticated,)
@@ -46,7 +46,7 @@ class EventView(APIView):
 
 class ListEventsView(APIView):
 
-    def post(self, request, format=None):
+    def get(self, request, format=None):
         events = Event.objects.filter(status='submitted')
         if request.GET.get('event_type'):
             events = events.filter(event_type=request.GET['event_type'])

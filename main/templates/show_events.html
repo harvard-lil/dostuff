@@ -13,7 +13,8 @@
       font-family: monospace;
       color: white;
       text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
-      font-size: larger;
+      font-size: 8em;
+      padding:0 1em;
     }
   </style>
 </head>
@@ -27,7 +28,7 @@
 
     function getEvents(query, callback){
       var xhr = new XMLHttpRequest();
-      xhr.open('POST', settings.list_events_url+'?'+query);
+      xhr.open('GET', settings.list_events_url+'?'+query);
       xhr.setRequestHeader('Content-Type', 'application/json');
       xhr.setRequestHeader("X-CSRFToken", getCSRFToken());
       xhr.onload = function() {
