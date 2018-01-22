@@ -23,6 +23,7 @@ requests = "*"
 jsonfield = "*"
 django-extensions = "*"
 channels = "*"
+asgi-redis = "*"
 
 
 [dev-packages]

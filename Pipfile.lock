@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "3e55071c3d8b9f7744855331413e87e405b9c1690445c31a80ae882a0acb87ef"
+            "sha256": "9d582c931d8b1f72f7b8c9ba7ffdac7f71be5a5076d57f6c876386af49278595"
         },
         "host-environment-markers": {
             "implementation_name": "cpython",
@@ -29,6 +29,13 @@
         ]
     },
     "default": {
+        "asgi-redis": {
+            "hashes": [
+                "sha256:ad724d382617b34c2cae08a8c43eb9999f7e695c11e9c534d28b7db0042b898e",
+                "sha256:f1f7a86439d764a6cd6c11d165a500d7287d5447ac8eb4c7b2483456cf3cb383"
+            ],
+            "version": "==1.4.3"
+        },
         "asgiref": {
             "hashes": [
                 "sha256:d69847e3164957f4e6da51d2f1192b920c6c7d626bd3fc55f47aa1295702a0ed",
@@ -162,6 +169,12 @@
             ],
             "version": "==2.0.2"
         },
+        "msgpack-python": {
+            "hashes": [
+                "sha256:69aa1eb0e13be1d3bd495ca937eae66df4431126f5cfd5491dc40370e5644853"
+            ],
+            "version": "==0.5.1"
+        },
         "psycopg2": {
             "hashes": [
                 "sha256:594aa9a095de16614f703d759e10c018bdffeafce2921b8e80a0e8a0ebbc12e5",
@@ -211,6 +224,13 @@
                 "sha256:fae4cffc040921b8a2d60c6cf0b5d662c1190fe54d718271db4eb17d44a185b7"
             ],
             "version": "==2017.3"
+        },
+        "redis": {
+            "hashes": [
+                "sha256:8a1900a9f2a0a44ecf6e8b5eb3e967a9909dfed219ad66df094f27f7d6f330fb",
+                "sha256:a22ca993cea2962dbb588f9f30d0015ac4afcc45bee27d3978c0dbe9e97c6c0f"
+            ],
+            "version": "==2.10.6"
         },
         "requests": {
             "hashes": [
