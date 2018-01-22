@@ -1,4 +1,7 @@
+import json
+
 import requests
+from channels import Group
 from django.conf import settings
 from django.shortcuts import render
 from rest_framework import status, serializers
@@ -39,6 +42,9 @@ class EventView(APIView):
 
         if serializer.is_valid():
             serializer.save(created_by=request.user, event_type=event_type)
+            Group('display').send({
+                "text":json.dumps(serializer.data)
+            })
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

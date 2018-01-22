@@ -20,6 +20,8 @@ DEBUG = env('DEBUG')
 # Application definition
 
 INSTALLED_APPS = [
+    'channels',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -134,3 +136,19 @@ REST_FRAMEWORK = {
 
 UPSTREAM_URL = env('UPSTREAM_URL', default='http://127.0.0.1:%s' % env('PORT', default=8000))
 UPSTREAM_TOKEN = env('UPSTREAM_TOKEN', default=None)
+
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "asgiref.inmemory.ChannelLayer",
+        "ROUTING": "dostuff.routing.channel_routing",
+    },
+}
+
+# use REDIS_URL for channel communication, if set
+if env('REDIS_URL', default=None):
+    # Channel settings
+    CHANNEL_LAYERS["default"]["BACKEND"] = "asgi_redis.RedisChannelLayer"
+    CHANNEL_LAYERS["default"]["CONFIG"] = {
+        "hosts": [env('REDIS_URL')],
+    }

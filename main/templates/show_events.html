@@ -19,56 +19,32 @@
   </style>
 </head>
 <body>
-  {% csrf_token %}
-  <div id="messages">
+  <div id="messages"></div>
 
-  </div>
+  <script src="/static/js/reconnecting-websocket.min.js"></script>
   <script>
     var messageDiv = document.getElementById("messages");
 
-    function getEvents(query, callback){
-      var xhr = new XMLHttpRequest();
-      xhr.open('GET', settings.list_events_url+'?'+query);
-      xhr.setRequestHeader('Content-Type', 'application/json');
-      xhr.setRequestHeader("X-CSRFToken", getCSRFToken());
-      xhr.onload = function() {
-        if (xhr.status === 200) {
-          var response = JSON.parse(xhr.responseText);
-          callback(response.results);
-        }
-      };
-      xhr.send();
-      /*JSON.stringify({
-          name: 'John Smith',
-          age: 34
-      }));*/
+    var ws_scheme = window.location.protocol == "https:" ? "wss" : "ws";
+    var chatsock = new ReconnectingWebSocket(ws_scheme + '://' + window.location.host + "/");
+
+    chatsock.onmessage = function(message) {
+      handleEvent(JSON.parse(message.data));
+      console.log(message);
+    };
+
+    function handleEvent(event){
+      event = event.data;
+      if(event.color){
+        document.body.style.backgroundColor = event.color;
+      }
+      if(event.message){
+        var message = document.createElement("div");
+        message.className = "message";
+        message.innerText = event.message;
+        messageDiv.insertBefore(message, messageDiv.firstChild);
+      }
     }
-
-    function getCSRFToken(){
-      return document.querySelector("[name=csrfmiddlewaretoken]").value;
-    }
-
-    function getUpdates(){
-      // update color
-      getEvents('event_type=color&limit=1', function(events){
-        if(events.length > 0){
-          document.body.style.backgroundColor = events[0].data.color;
-        }
-      });
-
-      // update messages
-      getEvents('event_type=message&limit=20', function(events){
-        messages.innerHTML = "";
-        events.forEach(function(event){  // create a new div element
-          var message = document.createElement("div");
-          message.className = "message";
-          message.innerText = event.data.message;
-          messages.appendChild(message);
-        });
-      });
-    }
-
-    setInterval(getUpdates, 100);
   </script>
 </body>
 </html>

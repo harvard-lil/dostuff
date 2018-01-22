@@ -22,6 +22,7 @@ django-environ = "*"
 requests = "*"
 jsonfield = "*"
 django-extensions = "*"
+channels = "*"
 
 
 [dev-packages]
