@@ -29,7 +29,7 @@ class EventView(APIView):
     serializer_class = EventSerializer
 
     def post(self, request, format=None):
-        data = request.data
+        data = request.data.dict()
 
         # find event type
         event_types = ('color', 'message')
@@ -39,8 +39,8 @@ class EventView(APIView):
         else:
             return Response({'error': 'Events must include one of %s' % (event_types,)}, status=status.HTTP_400_BAD_REQUEST)
 
-        room_name = request.data.pop('room_name', 'display')
-        serializer = self.serializer_class(data={'data': request.data}, context={'request': request})
+        room_name = data.pop('room_name', 'display')
+        serializer = self.serializer_class(data={'data': data}, context={'request': request})
 
         if serializer.is_valid():
             serializer.save(created_by=request.user, event_type=event_type, room_name=room_name)
