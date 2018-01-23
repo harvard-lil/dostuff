@@ -14,6 +14,6 @@ urlpatterns = [
     path('new_event', views.EventView.as_view(), name='event'),
     path('events', views.ListEventsView.as_view(), name='events'),
     path('endpoints', root_view),
-    path('', TemplateView.as_view(template_name='show_events.html')),
-
+    path('rooms/<room_name>', views.room),
+    path('', views.room, kwargs={"room_name": "display"}),
 ]

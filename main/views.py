@@ -18,10 +18,11 @@ class EventSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(read_only=True)
     data = serializers.JSONField()
     event_type = serializers.CharField(read_only=True)
+    room_name = serializers.CharField(required=False)
 
     class Meta:
         model = Event
-        fields = ('id', 'event_type', 'data',)
+        fields = ('id', 'event_type', 'data', 'room_name')
 
 class EventView(APIView):
     permission_classes = (IsAuthenticated,)
@@ -38,11 +39,12 @@ class EventView(APIView):
         else:
             return Response({'error': 'Events must include one of %s' % (event_types,)}, status=status.HTTP_400_BAD_REQUEST)
 
+        room_name = request.data.pop('room_name', 'display')
         serializer = self.serializer_class(data={'data': request.data}, context={'request': request})
 
         if serializer.is_valid():
-            serializer.save(created_by=request.user, event_type=event_type)
-            Group('display').send({
+            serializer.save(created_by=request.user, event_type=event_type, room_name=room_name)
+            Group('room-%s' % serializer.instance.room_name).send({
                 "text":json.dumps(serializer.data)
             })
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -63,6 +65,9 @@ class ListEventsView(APIView):
         serializer = EventSerializer(items, many=True)
         return paginator.get_paginated_response(serializer.data)
 
+
+def room(request, room_name):
+    return render(request, 'show_events.html', {"room": room_name})
 
 # class ResetEventView(APIView):
 #     permission_classes = (IsAdminUser,)

@@ -13,6 +13,7 @@ class Event(models.Model):
     data = JSONField()
     timestamp = models.DateTimeField(auto_now_add=True)
     created_by = models.ForeignKey(User, on_delete=models.CASCADE)
+    room_name = models.CharField(max_length=255, default="display")
     status = models.CharField(max_length=255, default='submitted',
                               choices=(('submitted', 'submitted'),
                                        ('processed', 'processed'),

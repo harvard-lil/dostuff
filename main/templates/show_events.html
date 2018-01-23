@@ -5,7 +5,8 @@
   <title>Doing Stuff</title>
   <script>
     var settings = {
-      list_events_url: "{% url 'events' %}"
+      list_events_url: "{% url 'events' %}",
+      room: "{{ room }}"
     }
   </script>
   <style>
@@ -26,7 +27,7 @@
     var messageDiv = document.getElementById("messages");
 
     var ws_scheme = window.location.protocol == "https:" ? "wss" : "ws";
-    var chatsock = new ReconnectingWebSocket(ws_scheme + '://' + window.location.host + "/");
+    var chatsock = new ReconnectingWebSocket(ws_scheme + '://' + window.location.host + "/rooms/" + settings.room);
 
     chatsock.onmessage = function(message) {
       handleEvent(JSON.parse(message.data));
