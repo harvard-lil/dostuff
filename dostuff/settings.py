@@ -152,3 +152,26 @@ if env('REDIS_URL', default=None):
     CHANNEL_LAYERS["default"]["CONFIG"] = {
         "hosts": [env('REDIS_URL')],
     }
+
+# Logging
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'propagate': True,
+            'level': 'INFO'
+        },
+        # 'chat': {
+        #     'handlers': ['console'],
+        #     'propagate': False,
+        #     'level': 'DEBUG',
+        # },
+    },
+}
