@@ -24,6 +24,7 @@ jsonfield = "*"
 django-extensions = "*"
 channels = "*"
 asgi-redis = "*"
+"fabric3" = "*"
 
 
 [dev-packages]
