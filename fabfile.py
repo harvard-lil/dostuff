@@ -36,6 +36,7 @@ def create_users(count=1):
     animals = "Dog Cat Horse Chicken Fish Bear Bird Shark Snake Pig Lion Turkey Wolf Spider Duck Deer Cow  Monkey Lobster Ape Pony Eagle Dolphin Bison".split()
 
     for i in range(int(count)):
+        # TODO: this throws IntegrityError if it happens to regenerate the same username
         username = ("%s %s" % (random.choice(adjectives), random.choice(animals))).title()
         user = User.objects.create_user(username=username, password=get_random_string(20))
         print(user.auth_token.key)

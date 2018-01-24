@@ -30,5 +30,5 @@ def create_auth_token(sender, instance=None, created=False, **kwargs):
     if created:
         Token.objects.create(
             user=instance,
-            key=get_random_string(4),
+            key=get_random_string(4, allowed_chars="23456789ABCDEFGHJKLMNPQRSTUVWXYZ"),
         )
