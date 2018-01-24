@@ -29,7 +29,9 @@ class EventView(APIView):
     serializer_class = EventSerializer
 
     def post(self, request, format=None):
-        data = request.data.dict()
+        # request.data may be a dict (if JSON post) or an immutable multivalue QueryDict (if key-value post).
+        # Coerce either to a regular mutable dictionary:
+        data = {k:v for k, v in request.data.items()}
 
         # find event type
         event_types = ('color', 'message')
