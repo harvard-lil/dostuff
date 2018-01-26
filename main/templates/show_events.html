@@ -51,7 +51,8 @@
       }
       if(event.youtube_id){
         if(/^[a-zA-Z0-9_-]+$/.test(event.youtube_id)) {
-          youtubeDiv.innerHTML = '<iframe frameborder="0" height="100%" width="100%" src="https://youtube.com/embed/' + event.youtube_id + '?autoplay=1&controls=0&showinfo=0&autohide=1"></iframe>\n';
+          youtubeUrl = ' https://www.youtube.com/embed/' + event.youtube_id + '?autoplay=1&loop=1&cc_load_policy=1&rel=0&controls=0&showinfo=0&playlist=' + event.youtube_id;
+          youtubeDiv.innerHTML = '<iframe frameborder="0" height="100%" width="100%" src="' + youtubeUrl + '"></iframe>\n';
         }
       }
     }
