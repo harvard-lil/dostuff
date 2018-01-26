@@ -21,10 +21,13 @@
 </head>
 <body>
   <div id="messages"></div>
+  <div id="youtube" style="position: fixed; z-index: -99; width: 100%; height: 100%; left: 0; top: 0"></div>
+</div>
 
   <script src="/static/js/reconnecting-websocket.min.js"></script>
   <script>
     var messageDiv = document.getElementById("messages");
+    var youtubeDiv = document.getElementById("youtube");
 
     var ws_scheme = window.location.protocol == "https:" ? "wss" : "ws";
     var chatsock = new ReconnectingWebSocket(ws_scheme + '://' + window.location.host + "/rooms/" + settings.room);
@@ -38,12 +41,18 @@
       event = event.data;
       if(event.color){
         document.body.style.backgroundColor = event.color;
+        youtubeDiv.innerHTML = "";
       }
       if(event.message){
         var message = document.createElement("div");
         message.className = "message";
         message.innerText = event.message;
         messageDiv.insertBefore(message, messageDiv.firstChild);
+      }
+      if(event.youtube_id){
+        if(/^[a-zA-Z0-9_-]+$/.test(event.youtube_id)) {
+          youtubeDiv.innerHTML = '<iframe frameborder="0" height="100%" width="100%" src="https://youtube.com/embed/' + event.youtube_id + '?autoplay=1&controls=0&showinfo=0&autohide=1"></iframe>\n';
+        }
       }
     }
   </script>
