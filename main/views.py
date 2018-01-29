@@ -17,12 +17,11 @@ from .models import Event
 class EventSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(read_only=True)
     data = serializers.JSONField()
-    event_type = serializers.CharField(read_only=True)
     room_name = serializers.CharField(required=False)
 
     class Meta:
         model = Event
-        fields = ('id', 'event_type', 'data', 'room_name')
+        fields = ('id', 'data', 'room_name')
 
 class EventView(APIView):
     permission_classes = (IsAuthenticated,)
@@ -33,19 +32,11 @@ class EventView(APIView):
         # Coerce either to a regular mutable dictionary:
         data = {k:v for k, v in request.data.items()}
 
-        # find event type
-        event_types = ('color', 'message')
-        for event_type in event_types:
-            if event_type in data:
-                break
-        else:
-            return Response({'error': 'Events must include one of %s' % (event_types,)}, status=status.HTTP_400_BAD_REQUEST)
-
         room_name = data.pop('room_name', 'display')
         serializer = self.serializer_class(data={'data': data}, context={'request': request})
 
         if serializer.is_valid():
-            serializer.save(created_by=request.user, event_type=event_type, room_name=room_name)
+            serializer.save(created_by=request.user, room_name=room_name)
             Group('room-%s' % serializer.instance.room_name).send({
                 "text":json.dumps(serializer.data)
             })
@@ -58,8 +49,6 @@ class ListEventsView(APIView):
 
     def get(self, request, format=None):
         events = Event.objects.filter(status='submitted')
-        if request.GET.get('event_type'):
-            events = events.filter(event_type=request.GET['event_type'])
 
         paginator = LimitOffsetPagination()
         items = paginator.paginate_queryset(events, request)

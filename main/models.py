@@ -9,7 +9,6 @@ from rest_framework.authtoken.models import Token
 
 
 class Event(models.Model):
-    event_type = models.CharField(max_length=255)
     data = JSONField()
     timestamp = models.DateTimeField(auto_now_add=True)
     created_by = models.ForeignKey(User, on_delete=models.CASCADE)
