@@ -48,7 +48,7 @@ class EventView(APIView):
 class ListEventsView(APIView):
 
     def get(self, request, format=None):
-        events = Event.objects.filter(status='submitted')
+        events = Event.objects.all()
 
         paginator = LimitOffsetPagination()
         items = paginator.paginate_queryset(events, request)
@@ -59,21 +59,3 @@ class ListEventsView(APIView):
 
 def room(request, room_name):
     return render(request, 'show_events.html', {"room": room_name})
-
-# class ResetEventView(APIView):
-#     permission_classes = (IsAdminUser,)
-#
-#     def post(self, request, format=None):
-#         Event.objects.filter(status='submitted').update(status='ignored')
-#         return Response({'result': 'OK'})
-
-
-# def display_events(request):
-#     requests.post(settings.UPSTREAM_URL+'reset_events', headers={"Authorization": "Token "+})
-
-# class ProcessEventView(APIView):
-#     def get(self, request, format=):
-#
-#     def post(self, request, format=None):
-#         Event.objects.filter(status='submitted').update(status='ignored')
-#         return Response({'result': 'OK'})
