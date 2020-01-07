@@ -36,11 +36,12 @@ class EventView(APIView):
         serializer = self.serializer_class(data={'data': data}, context={'request': request})
 
         if serializer.is_valid():
-            serializer.save(created_by=request.user, room_name=room_name)
-            Group('room-%s' % serializer.instance.room_name).send({
+            # let's disable database saving:
+            # serializer.save(created_by=request.user, room_name=room_name)
+            Group('room-%s' % room_name).send({
                 "text":json.dumps(serializer.data)
             })
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+            return Response("OK", status=status.HTTP_201_CREATED)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
