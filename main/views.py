@@ -58,5 +58,6 @@ class ListEventsView(APIView):
         return paginator.get_paginated_response(serializer.data)
 
 
+@xframe_options_exempt
 def room(request, room_name):
     return render(request, 'show_events.html', {"room": room_name})
