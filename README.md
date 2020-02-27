@@ -1,13 +1,8 @@
 # dostuff
 
-Create the file `dostuff/.env` (not in this directory, but in the `dostuff/` subdirectory): it should contain the lines
+Run:
 
-    SECRET_KEY=<someverysecretkey>
-    DATABASE_URL=sqlite:///db.sqlite3
-
-Then run:
-
-    docker-compose up --build
+    docker-compose up -d --build
     docker-compose exec web pipenv run ./manage.py migrate
     docker-compose exec web pipenv run ./manage.py collectstatic
     docker-compose exec web pipenv run ./manage.py createsuperuser
@@ -18,3 +13,6 @@ Log in as the new superuser at [localhost:5000/admin](http://localhost:5000/admi
     curl -H "Content-Type: application/json" -X POST http://localhost:5000/new_event -H 'Authorization: Token <token>' -d '{"message": "hello world!", "room_name":"test"}'
     curl -H "Content-Type: application/json" -X POST http://localhost:5000/new_event -H 'Authorization: Token <token>' -d '{"color": "blue", "room_name":"test"}'
     
+Hit `Ctrl-C` to stop the server, then stop the container by running
+
+    docker-compose down
