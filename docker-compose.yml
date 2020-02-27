@@ -6,7 +6,6 @@ services:
     command: bash
     volumes:
       - .:/app
-    env_file:
-      - dostuff/.env
+      - ./docker.env:/app/dostuff/.env
     ports:
       - "5000:5000"
