@@ -1,0 +1,12 @@
+version: '3'
+services:
+  web:
+    build: .
+    tty: True
+    command: bash
+    volumes:
+      - .:/app
+    env_file:
+      - dostuff/.env
+    ports:
+      - "5000:5000"
