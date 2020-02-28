@@ -15,5 +15,6 @@ urlpatterns = [
     path('events', views.ListEventsView.as_view(), name='events'),
     path('endpoints', root_view),
     path('rooms/<room_name>', views.room),
+    path('rooms/<room_name>/<int:em>', views.room),
     path('', views.room, kwargs={"room_name": "display"}),
 ]
