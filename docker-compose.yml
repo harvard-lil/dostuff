@@ -9,3 +9,5 @@ services:
       - ./docker.env:/app/dostuff/.env
     ports:
       - "5000:5000"
+  redis:
+    image: redis:5.0.7
