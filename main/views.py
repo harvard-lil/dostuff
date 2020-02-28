@@ -60,5 +60,5 @@ class ListEventsView(APIView):
 
 
 @xframe_options_exempt
-def room(request, room_name, em=8):
-    return render(request, 'show_events.html', {"room": room_name, "em": em})
+def room(request, room_name, em=8, color='white'):
+    return render(request, 'show_events.html', {"room": room_name, "em": em, "color": color})
