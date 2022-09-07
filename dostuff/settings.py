@@ -134,7 +134,7 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 300,  # max results per page
 }
 
-UPSTREAM_URL = env('UPSTREAM_URL', default='http://127.0.0.1:%s' % env('PORT', default=8000))
+UPSTREAM_URL = env('UPSTREAM_URL', default='http://127.0.0.1:%s' % env.int('PORT', default=8000))
 UPSTREAM_TOKEN = env('UPSTREAM_TOKEN', default=None)
 
 
