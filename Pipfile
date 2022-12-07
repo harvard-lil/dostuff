@@ -7,7 +7,7 @@ name = "pypi"
 
 [requires]
 
-python_version = "3.10"
+python_version = "3.9"
 
 
 [packages]
@@ -15,7 +15,7 @@ python_version = "3.10"
 dj-database-url = "*"
 django = "~=2.2"
 gunicorn = "*"
-"psycopg2" = "*"
+"psycopg2" = "==2.8.6"
 whitenoise = "*"
 djangorestframework = "*"
 django-environ = "*"

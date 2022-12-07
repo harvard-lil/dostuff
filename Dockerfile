@@ -1,4 +1,4 @@
-FROM python:3.6.10-buster
+FROM python:3.9.10-buster
 
 ENV LANG=C.UTF-8 \
     LC_ALL=C.UTF-8 \
@@ -27,5 +27,5 @@ COPY Pipfile /app
 COPY Pipfile.lock /app
 RUN pip3 install -U pip \
     && pip install pipenv \
-    && pipenv --python 3.6 install --ignore-pipfile --dev \
+    && pipenv --python 3.9 install --ignore-pipfile --dev \
     && rm Pipfile.lock
