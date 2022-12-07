@@ -1,4 +1,4 @@
-FROM python:3.9.10-buster
+FROM python:3.9.15-buster
 
 ENV LANG=C.UTF-8 \
     LC_ALL=C.UTF-8 \
