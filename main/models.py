@@ -19,11 +19,14 @@ class Event(models.Model):
 
 
 # Create API tokens for new users
-# via http://www.django-rest-framework.org/api-guide/authentication/#by-using-signals
+# via http://www.django-rest-framework.org/api-guide/authentication/#by-using-signals  # noqa
 @receiver(post_save, sender=settings.AUTH_USER_MODEL)
 def create_auth_token(sender, instance=None, created=False, **kwargs):
     if created:
         Token.objects.create(
             user=instance,
-            key=get_random_string(4, allowed_chars="23456789ABCDEFGHJKLMNPQRSTUVWXYZ"),
+            key=get_random_string(
+                4,
+                allowed_chars="23456789ABCDEFGHJKLMNPQRSTUVWXYZ"
+            ),
         )

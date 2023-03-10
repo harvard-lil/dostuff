@@ -1,7 +1,11 @@
-from channels import route
-from main import consumers
+from channels.routing import ProtocolTypeRouter, URLRouter
+from django.core.asgi import get_asgi_application
+import main.routing
 
-channel_routing = [
-    route("websocket.connect", consumers.ws_connect, path=r"^/rooms/(?P<room_name>[a-zA-Z0-9_]+)$"),
-    route("websocket.disconnect", consumers.ws_disconnect),
-]
+
+application = ProtocolTypeRouter({
+    "http": get_asgi_application(),
+    "websocket": URLRouter(
+        main.routing.websocket_urlpatterns
+    ),
+})
