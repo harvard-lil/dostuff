@@ -1,0 +1,27 @@
+[tool.poetry]
+name = "dostuff"
+version = "0.2.0"
+description = "Interactive API for educational demonstrations"
+authors = ["Library Innovation Lab <lil@law.harvard.edu>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+channels = "^4.0.0"
+djangorestframework = "^3.14.0"
+django-environ = "^0.10.0"
+invoke = "^2.0.0"
+django-extensions = "^3.2.1"
+jsonfield = "^3.1.0"
+channels-redis = "^4.0.0"
+daphne = "^4.0.0"
+whitenoise = "^6.4.0"
+
+
+[tool.poetry.group.dev.dependencies]
+flake8 = "^6.0.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

@@ -6,9 +6,9 @@ ENV LANG=C.UTF-8 \
     PIP_NO_CACHE_DIR=off \
     PIP_DISABLE_PIP_VERSION_CHECK=on \
     PIP_SRC=/usr/local/src \
-    PIPENV_HIDE_EMOJIS=true \
-    PIPENV_NOSPIN=true \
-    OPENSSL_CONF=/etc/ssl
+    OPENSSL_CONF=/etc/ssl \
+    POETRY_HOME=/opt/poetry \
+    PATH="${PATH}:/opt/poetry/bin"
 
 RUN mkdir /app
 WORKDIR /app
@@ -16,16 +16,11 @@ WORKDIR /app
 RUN apt-get update \
     && apt-get install -y curl \
     && apt-get install -y python3-pip \
-    && apt-get install -y python3-dev \
-    && apt-get install -y virtualenv \
-    && apt-get install -y git
+    && apt-get install -y python3-venv \
+    && python3 -m venv $POETRY_HOME \
+    && $POETRY_HOME/bin/pip install poetry==1.4.0
 
-# python requirements via pipenv.
-# to access the virtualenv, invoke python like this: `pipenv run python`
-# COPY Pipfile though it is ignored, per https://github.com/pypa/pipenv/issues/2834
-COPY Pipfile /app
-COPY Pipfile.lock /app
-RUN pip3 install -U pip \
-    && pip install pipenv \
-    && pipenv --python 3.9 install --ignore-pipfile --dev \
-    && rm Pipfile.lock
+COPY pyproject.toml /app
+COPY poetry.lock /app
+
+RUN $POETRY_HOME/bin/poetry install
