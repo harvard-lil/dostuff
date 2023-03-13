@@ -155,3 +155,6 @@ REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',  # noqa
     'PAGE_SIZE': 300,  # max results per page
 }
+
+# an attempt to solve a CSRF verification failure
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
