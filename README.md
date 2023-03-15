@@ -19,12 +19,10 @@ Hit `Ctrl-C` to stop the server, then stop the containers by running
 
     docker compose down
 
-You should also be able to run all of the above locally, without Docker, as long as you've [installed Poetry](https://python-poetry.org/docs/#installation) and can run `redis-server` (you probably want to `brew install redis`). When running locally, you will want to set the environment variable `$SECRET_KEY`, probably in `dostuff/.env`.
-
-You can also run the service with daphne directly, as in the `Procfile`, with `docker compose` or locally:
+You can also run the service with daphne directly, as in the `Procfile`:
 
 ```
-poetry run daphne -p 5000 dostuff.asgi:application --bind 0.0.0.0 -v2
+docker compose exec web poetry run daphne -p 5000 dostuff.asgi:application --bind 0.0.0.0 -v2
 ```
 
-When managing dependencies with Poetry, keep `requirements.txt` up to date by running `poetry export -o requirements.txt` - again, with `docker compose` or locally.
+When managing dependencies with Poetry, keep `requirements.txt` up to date by running `docker compose exec web poetry export -o requirements.txt`.
