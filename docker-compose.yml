@@ -11,3 +11,17 @@ services:
       - 127.0.0.1:5000:5000
   redis:
     image: redis:5.0.7
+  db:
+    image: registry.lil.tools/library/postgres:14.4
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: dostuff
+      POSTGRES_USER: postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data:delegated
+    networks:
+      - default
+volumes:
+  postgres_data:
+networks:
+  default:
