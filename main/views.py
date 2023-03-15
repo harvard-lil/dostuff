@@ -46,7 +46,7 @@ class EventView(APIView):
         # https://github.com/django/channels_redis/issues/332
         async def closing_send(channel_layer, channel, message):
             await channel_layer.group_send(channel, message)
-            await channel_layer.close_pools()
+            channel_layer.close_pools()
 
         if serializer.is_valid():
             # let's disable database saving:
