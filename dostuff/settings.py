@@ -157,5 +157,6 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 300,  # max results per page
 }
 
-# an attempt to solve a CSRF verification failure
+# an attempt to solve a CSRF verification failure; clue from
+# https://stackoverflow.com/a/70689561
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
