@@ -9,7 +9,6 @@ from rest_framework.response import Response
 
 from rest_framework.views import APIView
 
-import asyncio
 from channels.layers import get_channel_layer
 from asgiref.sync import async_to_sync
 
@@ -46,9 +45,7 @@ class EventView(APIView):
         # "Event loop is closed":
         # https://github.com/django/channels_redis/issues/332
         async def closing_send(channel_layer, channel, message):
-            await asyncio.wait_for(
-                channel_layer.group_send(channel, message), timeout=2.0
-            )
+            await channel_layer.group_send(channel, message)
             await channel_layer.close_pools()
 
         if serializer.is_valid():
