@@ -8,7 +8,7 @@ Run:
     docker compose exec web poetry run ./manage.py migrate
     docker compose exec web poetry run ./manage.py collectstatic
     docker compose exec web poetry run ./manage.py createsuperuser
-    docker compose exec web poetry run ./manage.py runserver 0.0.0.0:8000
+    docker compose exec web poetry run ./manage.py runserver 0.0.0.0:5000
     
 Log in as the new superuser at [localhost:5000/admin](http://localhost:5000/admin). Identify or create a token, then go to [localhost:5000/rooms/test](http://localhost:5000/rooms/test) and run, e.g.
 
