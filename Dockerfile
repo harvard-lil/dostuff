@@ -1,4 +1,4 @@
-FROM python:3.9.15-buster
+FROM python:3.13.1-bookworm
 
 ENV LANG=C.UTF-8 \
     LC_ALL=C.UTF-8 \
@@ -18,7 +18,7 @@ RUN apt-get update \
     && apt-get install -y python3-pip \
     && apt-get install -y python3-venv \
     && python3 -m venv $POETRY_HOME \
-    && $POETRY_HOME/bin/pip install poetry==1.4.0
+    && $POETRY_HOME/bin/pip install poetry==1.8.4
 
 COPY pyproject.toml /app
 COPY poetry.lock /app
