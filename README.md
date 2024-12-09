@@ -24,5 +24,3 @@ You can also run the service with daphne directly, as in the `Procfile`:
 ```
 docker compose exec web poetry run daphne -p 5000 dostuff.asgi:application --bind 0.0.0.0 -v2
 ```
-
-When managing dependencies with Poetry, keep `requirements.txt` up to date by running `docker compose exec web poetry export -o requirements.txt`.
